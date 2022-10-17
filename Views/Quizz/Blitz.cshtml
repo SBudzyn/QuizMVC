@@ -1,0 +1,120 @@
+﻿@model QuizMVC.Models.Quizz
+
+@{
+	ViewData["Title"] = "Blitz";
+	int? currentId = Convert.ToInt32(ViewContext.RouteData.Values["id"]);
+	int? nextId;
+	int? previousId;
+	string userId = Context.Request.Cookies["userId"];
+	string currentAnswer = CurrentUsers.Answers[userId][currentId ?? 0];
+	if (currentId >= 9)
+	{
+		nextId = 9;
+	}
+	else
+	{
+		nextId = currentId + 1;
+	}
+	if (currentId <= 0)
+	{
+		previousId = 0;
+	}
+	else
+	{
+		previousId = currentId - 1;
+	}
+
+
+	
+
+}
+
+
+
+<h5><a asp-action="Blitz" asp-route-id="@previousId">Previous</a></h5>
+<h5><a asp-action="Blitz" asp-route-id="@nextId">Next</a></h5>
+
+
+<p>@Context.Request.Cookies["userId"]</p>
+
+
+<h2>@Model.Question</h2>
+
+<p>A. @Model.AAnswer</p>
+<p>B. @Model.BAnswer</p>
+<p>C. @Model.CAnswer</p>
+<p>D. @Model.DAnswer</p>
+
+<h5>Select answer</h5>
+
+<form method="post">
+	@if (string.Equals("AAnswer", currentAnswer))
+	{
+		<label for="a-answer">A</label>
+		<input type="radio" name="answers" id="a-answer" value="AAnswer" checked />
+		<label for="b-answer">B</label>
+		<input type="radio" name="answers" id="b-answer" value="BAnswer" />
+		<label for="c-answer">C</label>
+		<input type="radio" name="answers" id="c-answer" value="CAnswer" />
+		<label for="d-answer">D</label>
+		<input type="radio" name="answers" id="d-answer" value="DAnswer" />
+	}
+	else if (string.Equals("BAnswer", currentAnswer))
+	{
+		<label for="a-answer">A</label>
+	<input type="radio" name="answers" id="a-answer" value="AAnswer" />
+	<label for="b-answer">B</label>
+	<input type="radio" name="answers" id="b-answer" value="BAnswer" checked />
+	<label for="c-answer">C</label>
+	<input type="radio" name="answers" id="c-answer" value="CAnswer" />
+	<label for="d-answer">D</label>
+	<input type="radio" name="answers" id="d-answer" value="DAnswer" />
+	}
+	else if (string.Equals("CAnswer", currentAnswer))
+	{
+		<label for="a-answer">A</label>
+	<input type="radio" name="answers" id="a-answer" value="AAnswer" />
+	<label for="b-answer">B</label>
+	<input type="radio" name="answers" id="b-answer" value="BAnswer" />
+	<label for="c-answer">C</label>
+	<input type="radio" name="answers" id="c-answer" value="CAnswer" checked />
+	<label for="d-answer">D</label>
+	<input type="radio" name="answers" id="d-answer" value="DAnswer" />
+	}
+	else if (string.Equals("DAnswer", currentAnswer))
+	{
+		<label for="a-answer">A</label>
+	<input type="radio" name="answers" id="a-answer" value="AAnswer" />
+	<label for="b-answer">B</label>
+	<input type="radio" name="answers" id="b-answer" value="BAnswer" />
+	<label for="c-answer">C</label>
+	<input type="radio" name="answers" id="c-answer" value="CAnswer" />
+	<label for="d-answer">D</label>
+		<input type="radio" name="answers" id="d-answer" value="DAnswer" checked />
+	}
+	else
+	{
+		<label for="a-answer">A</label>
+	<input type="radio" name="answers" id="a-answer" value="AAnswer" />
+	<label for="b-answer">B</label>
+	<input type="radio" name="answers" id="b-answer" value="BAnswer" />
+	<label for="c-answer">C</label>
+	<input type="radio" name="answers" id="c-answer" value="CAnswer" />
+	<label for="d-answer">D</label>
+	<input type="radio" name="answers" id="d-answer" value="DAnswer" />
+	}
+	<button type="submit" value="@previousId" name="transitTo" >Previous</button>
+	<button type="submit" value="@nextId" name="transitTo">Next</button>
+	
+
+</form>
+@if (currentId == 9)
+{
+	<a asp-action="BlitzResult">Finish test</a>
+}
+
+
+
+
+
+

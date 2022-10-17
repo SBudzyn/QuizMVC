@@ -1,0 +1,33 @@
+﻿@{
+	ViewData["Title"] = "Result";
+}
+
+<h1>Results</h1>
+
+@try
+{
+	<table class="table">
+	@for (var i = 0; i < CurrentUsers.quizzSets[Context.Request.Cookies["userId"]].Length; i++)
+	{
+		if (CurrentUsers.quizzSets[Context.Request.Cookies["userId"]][i].RightAnswer.Equals(CurrentUsers.Answers[Context.Request.Cookies["userId"]][i]))
+		{
+			<tr>
+				<td>@(i+1)</td>
+				<td>1/1</td>
+			</tr>
+		}
+		else
+		{
+			<tr>
+				<td>@(i+1)</td>
+				<td>0/1</td>
+			</tr>
+		}
+	}
+
+</table>
+}
+catch(Exception ex)
+{
+	
+}
